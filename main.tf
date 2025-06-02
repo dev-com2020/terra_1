@@ -1,5 +1,6 @@
 provider "azurerm" {
   features {}
+  subscription_id = "ae5c06a5-35d9-4549-a05c-e9cf1c7a36e3"
 }
 
 locals {
@@ -14,27 +15,14 @@ resource "azurerm_resource_group" "hello" {
 }
 
 resource "azurerm_storage_account" "backend" {
-  name = "${local.resource_group_name_loc}-storage-account"
+  name = "${local.resource_group_name_loc}account"
   resource_group_name = azurerm_resource_group.hello.name
-  location = azurerm_resource_group.locals.location_loc
+  location = local.location_loc
   account_tier = "Standard"
   account_replication_type = "LRS"
 }
 
-resource "azurerm_virtual_network" "vnet" {
-  name = local.network.vnet
-  address_space = [local.network.address_space]
-  resource_group_name = azurerm_resource_group.hello.name
-  location = azurerm_resource_group.locals.location_loc
-  dynamic "subnets" {
-    for_each = local.network.subnets
-    content {
-      name = subnets.value.name
-      address_prefixes = subnets.value.iprange
-    }
-  }
-}
-  
+ 
 output "web_app_name" {
   description = "value of web app name"
   value = azurerm_storage_account.backend.name
