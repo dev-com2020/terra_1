@@ -7,6 +7,7 @@ locals {
   resource_group_name_loc = "hello"
   location_loc = "eastus"
   network = yamldecode(file("network.yaml"))
+  now = timestamp()
 }
 
 resource "azurerm_resource_group" "hello" {
@@ -24,7 +25,7 @@ resource "azurerm_storage_account" "backend" {
 
  
 output "web_app_name" {
-  description = "value of web app name"
-  value = azurerm_storage_account.backend.name
-  sensitive = true
+  description = var.opis == "Hello" ? "opis aplikacji":"brak informacji o aplikacji"
+  value = "${local.now}-czas maszyny"
+  sensitive = false
 }
