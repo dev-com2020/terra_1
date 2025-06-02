@@ -1,2 +1,2 @@
-resource_group_name = "my-hello-world-rg"
+resource_group_name = "my-hello-world-alx-tomek"
 location            = "westeurope"

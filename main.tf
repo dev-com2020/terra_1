@@ -25,7 +25,7 @@ resource "azurerm_storage_account" "backend" {
 
  
 output "web_app_name" {
-  description = var.opis == "Hello" ? "opis aplikacji":"brak informacji o aplikacji"
+  # description = var.opis == "Hello" ? "opis aplikacji":"brak informacji o aplikacji"
   value = "${local.now}-czas maszyny"
   sensitive = false
 }
