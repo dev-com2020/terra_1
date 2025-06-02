@@ -16,7 +16,7 @@ variable "regions" {
   default = ["westeurope","northeurope","uksouth"]
 }
 
-variable "tags" {
+variable "tags3" {
   description = "Lista tagów"
   type        = list(string)
   nullable = true
@@ -48,3 +48,22 @@ variable "super_secret" {
   }
 }
 
+variable "tags" {
+  description = "Tags requested for deployment attributes mapping."
+  type = object({
+    Environment = string
+    Company = string
+    Count = number
+    AppName = string
+    CostLimit = number
+    Backup = bool
+  })
+  default = {}
+
+  validation {
+    condition = contains([
+      "prd", "pre", "sit","uat","dev","int","test","nonprd"
+    ], var.tags.Environment)
+    error_message = "infomracja o błędzie"
+  }
+}
